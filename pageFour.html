@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weitong Sun - Second Slide</title>
+    <!-- Favicon for the tab (Google Slides logo) -->
+    <link rel="icon" href="icon.png" sizes="64x64" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: black; /* Black background to simulate Google Slides */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        .text {
+            color: #333;
+            font-size: 2.5em;
+            text-align: center;
+            font-weight: bold;
+            margin: 0.5em 0;
+        }
+
+        .arrow {
+            position: absolute;
+            bottom: 20px; /* Position the arrow at the bottom */
+            right: 20px; /* Align arrow to the right */
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .arrow svg {
+            width: 50px;
+            height: 50px;
+            fill: #333; /* Arrow color */
+            transition: fill 0.3s ease;
+        }
+
+        .arrow svg:hover {
+            fill: #007BFF; /* Change color on hover */
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Two lines of centered, bold text -->
+        <div class="text">Stories, once created, will never end.</div>
+        <div class="text">Same as the tales of the digital world.</div>
+
+        <!-- Arrow Shape Linking to the Next Page -->
+        <a href="next-slide.html" class="arrow" id="next-page-arrow">
+            <!-- Right-facing arrow SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+        </a>
+    </div>
+
+    <script>
+        let spacePressed = false;
+
+        // Listen for the space bar being pressed
+        document.body.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                spacePressed = true; // Set flag when space bar is pressed
+            }
+        });
+
+        // Listen for the arrow click
+        document.getElementById('next-page-arrow').addEventListener('click', function(event) {
+            if (spacePressed) {
+                // Proceed to the next page if space was pressed
+                window.location.href = 'pageFive.html';
+            } else {
+                // If space hasn't been pressed, prevent the default click action
+                event.preventDefault();
+                alert("Error");
+            }
+        });
+    </script>
+</body>
+</html>
+

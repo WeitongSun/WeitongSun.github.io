@@ -9,20 +9,26 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0; /* Change to match your slide background */
+            background-color: black; /* Black background to simulate Google Slides frame */
             margin: 0;
             padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .slide-container {
-            width: 100%;
-            height: 100vh; /* Full height */
+            width: 100vw; /* Full width without margins */
+            height: 80vh; /* Top and bottom margins, no left and right margin */
+            background-color: #ffffff; /* Main background color */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #ffffff; /* Main background color */
             position: relative; /* For positioning the arrow */
         }
+
         .title {
             font-size: 3em;
             font-weight: bold;
@@ -31,17 +37,20 @@
             display: flex;
             align-items: center; /* Align logo with text */
         }
+
         .title img {
             width: 50px; /* Adjust the size of the logo */
             height: auto;
             margin-left: 10px; /* Add space between title and logo */
         }
+
         .subtitle {
             font-size: 1.5em;
             font-weight: normal;
             color: #777777;
             margin: 0.2em 0;
         }
+
         .content {
             font-size: 1.2em;
             line-height: 1.5;
@@ -50,6 +59,7 @@
             margin: 1em 0;
             width: 80%; /* Adjust the width as needed */
         }
+
         .arrow {
             position: absolute;
             bottom: 20px; /* Adjust to position the arrow */
@@ -57,15 +67,18 @@
             cursor: pointer;
             text-align: center;
         }
+
         .arrow svg {
             width: 50px;
             height: 50px;
             fill: #333; /* Arrow color */
             transition: fill 0.3s ease;
         }
+
         .arrow svg:hover {
             fill: #007BFF; /* Change color on hover */
         }
+
         a {
             text-decoration: none;
         }
@@ -80,7 +93,6 @@
         <div class="subtitle">she/they</div>
         <div class="content">
             <p></p>
-            <p></p>
         </div>
         <!-- Arrow Shape Linking to the Next Page -->
         <a href="pageTwo.html" class="arrow">
@@ -90,3 +102,4 @@
     </div>
 </body>
 </html>
+

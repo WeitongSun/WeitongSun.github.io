@@ -19,18 +19,11 @@
         }
 
         .slide-container {
-            width: 100vw; /* Full width of the viewport */
-            max-height: 80vh; /* Ensure margins on top and bottom */
+            width: 100vw; /* Full width without margins */
+            height: 80vh; /* Top and bottom margins, no left and right margin */
+            background: url('dog.jpg') no-repeat center center;
+            background-size: contain; /* Ensures the image scales without being cut */
             position: relative; /* For positioning the arrow */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .slide-container img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain; /* Ensures the image scales without being cut */
         }
 
         .arrow {
@@ -63,17 +56,16 @@
 </head>
 <body>
     <div class="slide-container">
-        <!-- Display the image in the container -->
-        <img src="dog.jpg" alt="Example Image">
-        
         <!-- Arrow Shape Linking to the Next Page -->
-        <a href="next-slide.html" class="arrow">
+        <a href="pageThree.html" class="arrow">
             <!-- Right-facing arrow SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
         </a>
     </div>
 </body>
 </html>
+
+
 
 
 

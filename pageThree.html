@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Slide</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: black; /* Background to simulate Google Slides */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 80vh; /* Ensure the video takes up most of the height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        iframe {
+            width: 80%;
+            height: 80%;
+            border: none;
+        }
+
+        .arrow {
+            position: absolute;
+            bottom: 20px; /* Position the arrow at the bottom */
+            right: 20px; /* Align arrow to the right */
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .arrow svg {
+            width: 50px;
+            height: 50px;
+            fill: #fff; /* Arrow color */
+            transition: fill 0.3s ease;
+        }
+
+        .arrow svg:hover {
+            fill: #007BFF; /* Change color on hover */
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Embed Google Drive Video -->
+        <iframe src="https://drive.google.com/file/d/15JHQkUpM_fpguh6UoDoH0jWwSOEDAGxO/preview" allow="autoplay"></iframe>
+
+        <!-- Arrow Shape Linking to the Next Page -->
+        <a href="pageFour.html" class="arrow">
+            <!-- Right-facing arrow SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+        </a>
+    </div>
+</body>
+</html>

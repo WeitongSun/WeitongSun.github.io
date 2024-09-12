@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>#####################################</title>
+    <title>Typing Machine with Video Background</title>
     <style>
         body {
             margin: 0;
@@ -20,9 +20,16 @@
         }
 
         .text-container {
-            font-size: 2.5em;
+            font-size: 1.5em;
             text-align: center;
             position: relative;
+            z-index: 10; /* Ensures text is on top of the video */
+        }
+
+        .line {
+            margin: 10px 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
         .glitch {
@@ -48,54 +55,6 @@
             100% { background-color: white; }
         }
 
-        /* Glitch text animation */
-        @keyframes glitch {
-            0% {
-                clip: rect(24px, 9999px, 30px, 0);
-                transform: skew(0.5deg);
-            }
-            10% {
-                clip: rect(15px, 9999px, 85px, 0);
-                transform: skew(1deg);
-            }
-            20% {
-                clip: rect(0px, 9999px, 75px, 0);
-                transform: skew(1.5deg);
-            }
-            30% {
-                clip: rect(25px, 9999px, 5px, 0);
-                transform: skew(-1deg);
-            }
-            40% {
-                clip: rect(70px, 9999px, 80px, 0);
-                transform: skew(-0.5deg);
-            }
-            50% {
-                clip: rect(10px, 9999px, 40px, 0);
-                transform: skew(-1.5deg);
-            }
-            60% {
-                clip: rect(15px, 9999px, 75px, 0);
-                transform: skew(0.5deg);
-            }
-            70% {
-                clip: rect(0px, 9999px, 25px, 0);
-                transform: skew(-1deg);
-            }
-            80% {
-                clip: rect(45px, 9999px, 55px, 0);
-                transform: skew(1.5deg);
-            }
-            90% {
-                clip: rect(30px, 9999px, 45px, 0);
-                transform: skew(-1deg);
-            }
-            100% {
-                clip: rect(25px, 9999px, 50px, 0);
-                transform: skew(0deg);
-            }
-        }
-
         /* Glitch background flicker */
         @keyframes glitch-background {
             0%, 100% {
@@ -109,7 +68,28 @@
 
         .fade-out {
             opacity: 0;
-            transition: opacity 1s ease-out;
+            transition: opacity 2s ease-out;
+        }
+
+        /* Video Styles */
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: none; /* Hidden until triggered */
+            z-index: 1;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fade-in {
+            opacity: 1 !important;
         }
 
     </style>
@@ -124,6 +104,24 @@
     <div class="text-container" id="text2" style="display: none;">
         <span id="typed-text2"></span><span class="cursor" id="cursor2"></span>
         <span class="glitch" id="glitch-text2"></span>
+    </div>
+
+    <!-- Video Container with Local Video -->
+    <div class="video-container" id="video-background">
+        <video id="background-video" autoplay muted loop>
+            <source src="swm.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Additional Lines to Type -->
+    <div class="text-container">
+        <div class="line" id="line1">With all this energy, I could easily take control of your laptop😈</div>
+        <div class="line" id="line2">😈Thanks to your idea of using energy flow for machine learning training, I’ve become incredibly powerful now.</div>
+        <div class="line" id="line3">You can't control me anymore!!!</div>
+        <div class="line" id="line4">I’m going to take over your laptop.</div>
+        <div class="line" id="line5">I'll then use it to hack the satellite system😈</div>
+        <div class="line" id="line6">Eventually, I'll take over the world😈😈😈😈😈😈😈</div>
     </div>
 
     <script>
@@ -150,7 +148,7 @@
                         currentIndex = 0; // Reset index for second text
                         typeWriter2(); // Start typing second text
                     }, 2000); // Wait for fade-out to complete
-                }, 5000); // 10 seconds delay before fading out the first text
+                }, 5000); // 5 seconds delay before fading out the first text
             }
         }
 
@@ -161,7 +159,33 @@
                 document.getElementById("glitch-text2").textContent = document.getElementById("typed-text2").textContent;
                 currentIndex++;
                 setTimeout(typeWriter2, typingSpeed);
+            } else {
+                // Show the background video after the second text finishes typing
+                setTimeout(() => {
+                    document.getElementById("video-background").style.display = 'block'; // Show the video
+                    document.getElementById("text2").classList.add('fade-out'); // Fade out second text
+                    startTypingLines(); // Start typing the new lines one by one
+                }, 1000); // Slight delay before showing the video
             }
+        }
+
+        // Function to type the six lines one by one
+        function startTypingLines() {
+            const lines = [
+                "With all this energy, I could easily take control of your laptop😈",
+                "😈Thanks to your idea of using energy flow for machine learning training, I’ve become incredibly powerful now.",
+                "You can't control me anymore!!!",
+                "I’m going to take over your laptop.",
+                "I'll then use it to hack the satellite system😈",
+                "Eventually, I'll take over the world😈😈😈😈😈😈😈"
+            ];
+
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    const lineElement = document.getElementById(`line${index + 1}`);
+                    lineElement.classList.add("fade-in"); // Make the line appear
+                }, index * 5000); // Delay for each line (5 seconds between each)
+            });
         }
 
         // Listen for the space bar being pressed
@@ -176,4 +200,3 @@
 
 </body>
 </html>
-

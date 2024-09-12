@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#####################################</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace; /* Typewriter-style font */
+            overflow: hidden;
+            animation: glitch-background 3s infinite; /* Background flicker */
+        }
+
+        .text-container {
+            font-size: 2.5em;
+            text-align: center;
+            position: relative;
+        }
+
+        .glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: white;
+            text-shadow: 2px 0 red, -2px 0 darkred;
+            animation: glitch 1s infinite;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            background-color: white;
+            margin-left: 5px;
+            animation: blink 0.5s steps(2) infinite;
+        }
+
+        @keyframes blink {
+            0% { background-color: white; }
+            50% { background-color: transparent; }
+            100% { background-color: white; }
+        }
+
+        /* Glitch text animation */
+        @keyframes glitch {
+            0% {
+                clip: rect(24px, 9999px, 30px, 0);
+                transform: skew(0.5deg);
+            }
+            10% {
+                clip: rect(15px, 9999px, 85px, 0);
+                transform: skew(1deg);
+            }
+            20% {
+                clip: rect(0px, 9999px, 75px, 0);
+                transform: skew(1.5deg);
+            }
+            30% {
+                clip: rect(25px, 9999px, 5px, 0);
+                transform: skew(-1deg);
+            }
+            40% {
+                clip: rect(70px, 9999px, 80px, 0);
+                transform: skew(-0.5deg);
+            }
+            50% {
+                clip: rect(10px, 9999px, 40px, 0);
+                transform: skew(-1.5deg);
+            }
+            60% {
+                clip: rect(15px, 9999px, 75px, 0);
+                transform: skew(0.5deg);
+            }
+            70% {
+                clip: rect(0px, 9999px, 25px, 0);
+                transform: skew(-1deg);
+            }
+            80% {
+                clip: rect(45px, 9999px, 55px, 0);
+                transform: skew(1.5deg);
+            }
+            90% {
+                clip: rect(30px, 9999px, 45px, 0);
+                transform: skew(-1deg);
+            }
+            100% {
+                clip: rect(25px, 9999px, 50px, 0);
+                transform: skew(0deg);
+            }
+        }
+
+        /* Glitch background flicker */
+        @keyframes glitch-background {
+            0%, 100% {
+                background-color: black;
+            }
+            50% {
+                background-color: #110000;
+                transform: skewX(5deg);
+            }
+        }
+
+        .fade-out {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="text-container" id="text1">
+        <span id="typed-text1"></span><span class="cursor" id="cursor1"></span>
+        <span class="glitch" id="glitch-text1"></span>
+    </div>
+
+    <div class="text-container" id="text2" style="display: none;">
+        <span id="typed-text2"></span><span class="cursor" id="cursor2"></span>
+        <span class="glitch" id="glitch-text2"></span>
+    </div>
+
+    <script>
+        const text1 = "Yes, he's right";
+        const text2 = "You allowed too much human energy input into me through your art installation.";
+        let spacePressed = false;
+        let currentIndex = 0;
+        const typingSpeed = 100; // Speed of typing in milliseconds
+
+        // Function to simulate typing effect for the first text
+        function typeWriter1() {
+            if (currentIndex < text1.length) {
+                document.getElementById("typed-text1").textContent += text1.charAt(currentIndex);
+                document.getElementById("glitch-text1").textContent = document.getElementById("typed-text1").textContent;
+                currentIndex++;
+                setTimeout(typeWriter1, typingSpeed);
+            } else {
+                // After 5 seconds, fade out the first text and show the second line
+                setTimeout(() => {
+                    document.getElementById("text1").classList.add('fade-out');
+                    setTimeout(() => {
+                        document.getElementById("text1").style.display = 'none'; // Hide the first text
+                        document.getElementById("text2").style.display = 'block'; // Show the second text
+                        currentIndex = 0; // Reset index for second text
+                        typeWriter2(); // Start typing second text
+                    }, 2000); // Wait for fade-out to complete
+                }, 5000); // 10 seconds delay before fading out the first text
+            }
+        }
+
+        // Function to simulate typing effect for the second text
+        function typeWriter2() {
+            if (currentIndex < text2.length) {
+                document.getElementById("typed-text2").textContent += text2.charAt(currentIndex);
+                document.getElementById("glitch-text2").textContent = document.getElementById("typed-text2").textContent;
+                currentIndex++;
+                setTimeout(typeWriter2, typingSpeed);
+            }
+        }
+
+        // Listen for the space bar being pressed
+        document.body.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' && !spacePressed) {
+                spacePressed = true; // Ensure it runs only once
+                document.getElementById("text1").style.display = 'block'; // Show the text container
+                typeWriter1(); // Start the typing effect for the first line
+            }
+        });
+    </script>
+
+</body>
+</html>
+

@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weitong Sun - Second Slide</title>
-    <!-- Favicon for the tab (Google Slides logo) -->
-    <link rel="icon" href="icon.png" sizes="64x64" type="image/png">
+    <title>Dynamic Matrix Effect</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-color: black; /* Black background to simulate Google Slides */
+            background-color: black; /* Background for Matrix effect */
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
+            overflow: hidden;
         }
 
         .slide-container {
             width: 100vw;
-            height: 80vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #ffffff;
+            background-color: black;
             position: relative;
+            z-index: 1; /* Ensure content is above the matrix initially */
+            transition: opacity 1.5s ease-out; /* Smooth fade out for text */
         }
 
         .text {
-            color: #333;
+            color: #ffffff;
             font-size: 2.5em;
             text-align: center;
             font-weight: bold;
@@ -48,7 +49,7 @@
         .arrow svg {
             width: 50px;
             height: 50px;
-            fill: #333; /* Arrow color */
+            fill: #ffffff; /* Arrow color */
             transition: fill 0.3s ease;
         }
 
@@ -56,26 +57,95 @@
             fill: #007BFF; /* Change color on hover */
         }
 
-        a {
-            text-decoration: none;
+        .matrix-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 2; /* Ensure the matrix animation is on top */
+            background-color: black;
+            display: none; /* Hidden until triggered */
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: 0;
+            width: 5vw;
+            color: lime;
+            font-family: monospace;
+            font-size: 20px;
+            line-height: 1.5;
+            animation: matrixFall 10s linear infinite;
+        }
+
+        @keyframes matrixFall {
+            0% {
+                top: -100vh;
+            }
+            100% {
+                top: 100vh;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="slide-container">
+    <div class="slide-container" id="slide-content">
         <!-- Two lines of centered, bold text -->
         <div class="text">Stories, once created, will never end.</div>
         <div class="text">Same as the tales of the digital world.</div>
 
         <!-- Arrow Shape Linking to the Next Page -->
-        <a href="next-slide.html" class="arrow" id="next-page-arrow">
+        <a href="#" class="arrow" id="next-page-arrow">
             <!-- Right-facing arrow SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
         </a>
     </div>
 
+    <!-- Matrix Animation -->
+    <div class="matrix-container" id="matrix-animation"></div>
+
     <script>
         let spacePressed = false;
+
+        // Random characters for the Matrix effect
+        const matrixChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+        // Function to generate random characters
+        function getRandomChar() {
+            return matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
+        }
+
+        // Create a column of dynamic Matrix text
+        function createMatrixColumn(leftPosition) {
+            const column = document.createElement('div');
+            column.classList.add('matrix-column');
+            column.style.left = leftPosition + 'vw';
+
+            for (let i = 0; i < 100; i++) { // 100 rows of random characters
+                const charElement = document.createElement('p');
+                charElement.textContent = getRandomChar();
+                column.appendChild(charElement);
+            }
+
+            document.getElementById('matrix-animation').appendChild(column);
+
+            // Update characters dynamically
+            setInterval(() => {
+                const chars = column.querySelectorAll('p');
+                chars.forEach((char) => {
+                    char.textContent = getRandomChar();
+                });
+            }, 100); // Refresh characters every 100ms
+        }
+
+        // Initialize Matrix columns across the screen
+        function initMatrix() {
+            for (let i = 0; i < 20; i++) { // Create 20 columns of text
+                createMatrixColumn(i * 5); // Spacing out columns by 5vw
+            }
+        }
 
         // Listen for the space bar being pressed
         document.body.addEventListener('keydown', function(event) {
@@ -87,15 +157,23 @@
         // Listen for the arrow click
         document.getElementById('next-page-arrow').addEventListener('click', function(event) {
             if (spacePressed) {
-                // Proceed to the next page if space was pressed
-                window.location.href = 'pageFive.html';
+                // Fade out the text content
+                document.getElementById('slide-content').style.opacity = '0';
+
+                // Trigger Matrix animation when space is pressed and arrow is clicked
+                document.getElementById('matrix-animation').style.display = 'block';
+                initMatrix(); // Initialize the dynamic matrix effect
+
+                // After 10 seconds (duration of animation), navigate to the next page
+                setTimeout(function() {
+                    window.location.href = 'pageFive.html'; // Navigate to the next slide
+                }, 10000); // Matrix animation lasts for 10 seconds
             } else {
                 // If space hasn't been pressed, prevent the default click action
                 event.preventDefault();
-                alert("Error");
+                alert("Press the space bar first to proceed!");
             }
         });
     </script>
 </body>
 </html>
-
